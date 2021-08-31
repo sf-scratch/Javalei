@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.leige.dao.FatherMapper">
+<select id="getFather" resultType="com.leige.pojo.Father">
+    select * from mybatis.father
+</select>
+
+    <select id="get_Father" parameterType="String" resultMap="FatherSon">
+        select s.id sid,s.name sname,s.password spd,f.id fid,f.password fpd
+        from  father f,son s
+        where f.password=s.password and f.password=#{fpd}
+    </select>
+    <resultMap id="FatherSon" type="com.leige.pojo.Father">
+        <result property="id" column="fid"></result>
+        <result property="password" column="fpd"></result>
+        <collection property="sons" ofType="com.leige.pojo.Son">
+            <result property="id" column="sid"></result>
+            <result property="name" column="sname"></result>
+            <result property="password" column="spd"></result>
+        </collection>
+    </resultMap>
+
+
+</mapper>

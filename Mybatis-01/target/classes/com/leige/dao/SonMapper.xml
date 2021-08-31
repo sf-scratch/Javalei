@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.leige.dao.SonMapper">
+
+    <select id="getSon" resultMap="Son_Father">
+        select * from  mybatis.user
+    </select>
+    <resultMap id="Son_Father" type="com.leige.pojo.Son">
+        <result property="id" column="id"></result>
+        <result property="username" column="username"></result>
+<!--        复杂属性，需要单独处理-->
+<!--        对象：association-->
+<!--        集合：collection-->
+        <association property="father" column="password" javaType="com.leige.pojo.Father" select="getFa"></association>
+    </resultMap>
+    <select id="getFa" resultType="com.leige.pojo.Father">
+        select * from mybatis.father where password=#{s}
+    </select>
+
+
+    <select id="getSon2" resultMap="Son_Father2">
+        select u.id uid,u.username user,f.password fpd,f.id fid
+        from mybatis.user u,mybatis.father f
+        where u.password = f.password
+    </select>
+    <resultMap id="Son_Father2" type="com.leige.pojo.Son">
+        <result property="id" column="uid"></result>
+        <result property="username" column="user"></result>
+        <association property="father" javaType="com.leige.pojo.Father">
+            <result property="id" column="fid"></result>
+            <result property="password" column="fpd"></result>
+        </association>
+    </resultMap>
+
+</mapper>

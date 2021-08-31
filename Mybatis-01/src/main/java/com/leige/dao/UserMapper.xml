@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.com.leige.dao.UserMapper">
+<!--    查询所有-->
+    <select id="getUserList" resultType="com.com.leige.pojo.User">
+        select * from  mybatis.user
+    </select>
+<!--    查询id-->
+    <select id="getUserId" parameterType="int" resultType="com.com.leige.pojo.User">
+        select * from mybatis.user where id=#{i}
+    </select>
+<!--    添加用户-->
+    <insert id="addUser" parameterType="com.com.leige.pojo.User" >
+        insert into mybatis.user (id,username,password) values (#{id},#{username},#{password})
+    </insert>
+<!--    修改用户-->
+    <update id="updateUser" parameterType="com.com.leige.pojo.User">
+        update mybatis.user set username=#{username} where id=#{id};
+    </update>
+<!--    删除用户-->
+    <delete id="deleteUserById" parameterType="int">
+        delete from mybatis.user where id=#{id}
+    </delete>
+
+
+
+
+
+
+
+
+
+</mapper>
